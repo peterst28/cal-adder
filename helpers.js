@@ -1,4 +1,14 @@
 
+function getSiteName() {
+	var metas = document.getElementsByTagName('meta'); 
+	for (i=0; i<metas.length; i++) { 
+      if (metas[i].getAttribute("property") == "og:site_name") { 
+         return metas[i].getAttribute("content"); 
+      } 
+   }
+	return "";
+}
+
 function getButtonHTML(googleOauthURL) {
 	return '<a href="' + googleOauthURL + '" target="_blank"><img src="//www.google.com/calendar/images/ext/gc_button6.gif" border=0></a>';
 }
