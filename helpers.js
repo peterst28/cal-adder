@@ -1,4 +1,8 @@
 
+function getButtonHTML(googleOauthURL) {
+	return '<a href="' + googleOauthURL + '" target="_blank"><img src="//www.google.com/calendar/images/ext/gc_button6.gif" border=0></a>';
+}
+
 function serializeState(state) {
 	var ret = "";
 	// format:

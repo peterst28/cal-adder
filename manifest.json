@@ -16,8 +16,6 @@
     }
   ],
   "permissions": [
-    "tabs",
-    "history",
 		"https://www.googleapis.com/calendar/v3/*",
 		"https://accounts.google.com/o/oauth2/token",
 		"https://api.meetup.com/2/event/"

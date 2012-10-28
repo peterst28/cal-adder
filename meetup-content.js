@@ -11,7 +11,7 @@ var event_id = match[1];
 // is picked up by event-adder.js
 var url = getGoogleOauthURL({site:"meetup", id:event_id});
 $(document).ready( function() {
-	$('#rsvpBox').append('<center><a href="' + url + '"><img src="//www.google.com/calendar/images/ext/gc_button6.gif" border=0></a></center>');
+	$('#rsvpBox').append('<center>' + getButtonHTML(url) + '</center>');
 });
 
 
