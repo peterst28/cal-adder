@@ -1,4 +1,47 @@
 
+// Adding your site object to the site_objs variable allows
+// the event-adder to find and interpret your site
+site_objs.meetup = new Object();
+
+/**
+ * The event-adder calls this function in order to get the details of an event.
+ * It must return a deferred object which, when resolved, should set an object
+ * with fields matching those described here:
+ * https://developers.google.com/google-apps/calendar/v3/reference/events/insert
+ *
+ * The state object is populated with the same fields as those
+ * passed into getGoogleOauthURL() by the content script (meetup-content.js)
+ * eg. getGoogleOauthURL({site:"meetup", id:event_id})
+ */
+site_objs.meetup.getEventDetails = function (state) {
+	
+	var deferred = $.Deferred();
+	
+	// key for a dummy meetup account.
+	var meetup_key = "2c68791de71611323543552271f3c69";
+	
+	// see link for more info:
+	//	http://www.meetup.com/meetup_api/docs/2/event/#get
+	eventinfo_request = $.ajax({
+	  url: "https://api.meetup.com/2/event/" + state.id + "?key=" + meetup_key + "&sign=true" ,
+	  type: "GET",
+		dataType: "json"
+	});
+	
+	eventinfo_request.success(function(msg) {
+		var eventObj = parseMeetupEvent(msg);
+		parseMeetupEvent(msg);
+		deferred.resolve(eventObj);
+	});
+	
+	eventinfo_request.error(function(jqXHR, textStatus) {
+		console.log(jqXR);
+	  deferred.reject( "Meetup request failed: " + jqXHR.statusText );
+	});
+	
+	return deferred.promise();
+}
+
 /**
  * Parses the response from meetup & returns
  * the object expected by Google's calendar API.
@@ -46,33 +89,4 @@ function parseMeetupEvent(msg) {
 	}
 											
 	return eventObj;
-}
-
-function getMeetupEventDetails(stateArgs) {
-	
-	var deferred = $.Deferred();
-	
-	// key for a dummy meetup account.
-	var meetup_key = "2c68791de71611323543552271f3c69";
-	
-	// see link for more info:
-	//	http://www.meetup.com/meetup_api/docs/2/event/#get
-	eventinfo_request = $.ajax({
-	  url: "https://api.meetup.com/2/event/" + stateArgs.id + "?key=" + meetup_key + "&sign=true" ,
-	  type: "GET",
-		dataType: "json"
-	});
-	
-	eventinfo_request.success(function(msg) {
-		var eventObj = parseMeetupEvent(msg);
-		parseMeetupEvent(msg);
-		deferred.resolve(eventObj);
-	});
-	
-	eventinfo_request.error(function(jqXHR, textStatus) {
-		console.log(jqXR);
-	  deferred.reject( "Meetup request failed: " + jqXHR.statusText );
-	});
-	
-	return deferred.promise();
 }

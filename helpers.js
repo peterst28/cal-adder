@@ -1,4 +1,9 @@
 
+// The objects defined here allow event-adder
+// to interpret the events.
+// See meetup-helpers.js for an example.
+var site_objs = new Object();
+
 function getSiteName() {
 	var metas = document.getElementsByTagName('meta'); 
 	for (i=0; i<metas.length; i++) { 
@@ -146,18 +151,16 @@ function goToCalendarEvent(url) {
  * Returns a deferred object which returns
  * the event object.
  */
-function getEventDetails(hashArgs, stateArgs) {
-	
-	var eventinfo_request;
-	
-	if(stateArgs.site == "meetup") {
+function getEventDetails(state) {
+
+	if(site_objs[state.site]) {
 		
-		return getMeetupEventDetails(stateArgs);
+		return site_objs[state.site].getEventDetails(state);
 		
 	} else {
 		// Unrecognized site
 		var deferred = $.Deferred();
-		deferred.reject("Unrecognized site: " + stateArgs.site);
+		deferred.reject("Unrecognized site: " + state.site);
 		return deferred.promise();
 	}
 }

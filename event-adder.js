@@ -6,9 +6,9 @@
 // parse the URL.
 var urlComponents = parseCurrURL();
 var hashArgs = parseHashArgs(urlComponents.hash);
-var stateArgs = deserializeState(hashArgs.state);
+var state = deserializeState(hashArgs.state);
 
-if(stateArgs.site) {
+if(state.site) {
 
 	// This script is executed when the user is redirected
 	// to google's robots.txt
@@ -20,7 +20,7 @@ if(stateArgs.site) {
 
 	$.when(
 
-		getEventDetails(hashArgs, stateArgs),
+		getEventDetails(state),
 		verifyGoogleToken(hashArgs.access_token)
 
 	).done( function(eventObj, accessToken) {

@@ -1,6 +1,6 @@
 {
   "name": "Google Calendar Event Adder",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 2,
   "description": "Add events to Google Calendar from various websites.",
   "content_scripts": [
@@ -11,7 +11,7 @@
     },
     {
       "matches": ["http://www.google.com/robots.txt*"],
-      "js": ["jquery-1.8.2.js", "meetup-helpers.js", "helpers.js", "event-adder.js"],
+      "js": ["jquery-1.8.2.js", "helpers.js", "meetup-helpers.js", "event-adder.js"],
       "run_at": "document_start"
     }
   ],
