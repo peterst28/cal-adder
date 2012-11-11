@@ -10,10 +10,18 @@
       "run_at": "document_start"
     },
     {
+      "matches": ["http://*.ticketmaster.com/event/*"],
+      "js": ["jquery-1.8.2.js", "helpers.js", "ticketmaster-content.js"],
+      "run_at": "document_start"
+    },
+
+
+    {
       "matches": ["http://www.google.com/robots.txt*"],
-      "js": ["jquery-1.8.2.js", "helpers.js", "meetup-helpers.js", "event-adder.js"],
+      "js": ["jquery-1.8.2.js", "helpers.js", "meetup-helpers.js", "ticketmaster-helpers.js", "event-adder.js"],
       "run_at": "document_start"
     }
+
   ],
   "permissions": [
 		"https://www.googleapis.com/calendar/v3/*",
