@@ -5,7 +5,7 @@
 $(document).ready( function() {
 	
 	if(getSiteName() == "Meetup") {
-		
+
 		// grab the event id from the url
 		var match = /\/events\/(\d+)\//.exec(window.location.href);
 		if(match) {
@@ -16,7 +16,7 @@ $(document).ready( function() {
 			// is picked up by event-adder.js
 			var url = getGoogleOauthURL({site:"meetup", id:event_id});
 		
-			$('#rsvpBox').append('<center>' + getButtonHTML(url) + '</center>');
+			$('#event-join').after('<center>' + getButtonHTML(url) + '</center>');
 		}
 	}
 });
